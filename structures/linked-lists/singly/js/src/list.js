@@ -1,4 +1,4 @@
-import {isNull} from 'lodash';
+import {isNull, isEqual} from 'lodash';
 import ListNode from './list-node';
 
 class List {
@@ -40,26 +40,30 @@ class List {
         let listNode = this.head;
 
         if (listNode.value === value) {
-            if (head === tail) {
+            if (isEqual(this.head, this.tail)) {
                 this.head = null;
                 this.tail = null;
             } else {
                 this.head = this.head.next;
             }
 
+            this.count -= 1;
+
             return true;
         }
 
-        while (!isNull(listNode) && listNode.next.value != value) {
+        while (!isNull(listNode.next) && listNode.next.value !== value) {
             listNode = listNode.next;
         }
 
-        if (!isNull(listNode)) {
-            if (listNode.next === this.tail) {
+        if (!isNull(listNode.next)) {
+            if (isEqual(listNode.next, this.tail)) {
                 this.tail = listNode;
             }
 
             listNode.next = listNode.next.next;
+            this.count -= 1;
+
             return true;
         }
 

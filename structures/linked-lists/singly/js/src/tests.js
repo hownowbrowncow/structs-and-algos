@@ -90,5 +90,54 @@ describe('Singly Linked List Tests', function() {
                 expect(list.contains(1)).to.be.true;
             });
         });
+
+        describe('#remove tests', function() {
+            let list = new List();        
+
+            it('returns false when list is empty', function() {
+                expect(list.remove(1)).to.be.false;
+            });
+
+            it('returns false when no matching list node value', function() {
+                list.insert(1);
+
+                expect(list.remove(2)).to.be.false;
+            });
+
+            it('sets head and tail to null when only list node removed', function() {
+                expect(list.remove(1)).to.be.true;
+                expect(list.head).to.be.null;
+                expect(list.tail).to.be.null;
+            });
+
+            it('sets head to head.next when removed list node is head', function() {
+                list.insert(1);
+                list.insert(2);
+                
+                let next = list.head.next;
+
+                expect(list.remove(1)).to.be.true;
+                expect(list.head).to.equal(next);
+            });
+
+            it('sets tail to previous list node when removed list node is tail', function() {
+                list.insert(3);
+                list.insert(4);
+
+                let newTail = list.head.next;
+
+                expect(list.remove(4)).to.be.true;
+                expect(list.tail).to.equal(newTail);
+            });
+
+            it('removes matched list node and if between head and tail', function() {
+                list.insert(5);
+                list.insert(6);
+                list.insert(7);
+
+                expect(list.remove(5)).to.be.true;
+                expect(list.contains(5)).to.be.false;
+            });
+        });
     });
 });
