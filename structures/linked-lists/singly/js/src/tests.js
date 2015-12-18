@@ -68,5 +68,27 @@ describe('Singly Linked List Tests', function() {
                 });
             });
         });
+
+        describe('#contains tests', function() {
+            let list;
+
+            before(function() {
+                list = new List();
+            });
+
+            it('returns false when no list nodes in list', function() {
+                expect(list.contains(1)).to.be.false;
+            });
+
+            it('returns false when no matching list node value in list', function() {
+                list.insert(1);
+
+                expect(list.contains(2)).to.be.false;
+            });
+
+            it('returns true when matching list node value is in list', function() {
+                expect(list.contains(1)).to.be.true;
+            });
+        });
     });
 });
