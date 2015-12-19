@@ -106,7 +106,7 @@ describe('Binary Search Tree Tests', function() {
                 expect(tree.contains(tree.root, 50)).to.be.false;
             });
 
-            it('returns true of parentNode.value is search value', function() {
+            it('returns true of rootNode.value is search value', function() {
                 tree.insert(50);
                 
                 expect(tree.contains(tree.root, 50)).to.be.true;
@@ -116,7 +116,7 @@ describe('Binary Search Tree Tests', function() {
                 expect(tree.contains(tree.root, 30)).to.be.false;
             });
 
-            it('recurses downward on parentNode.left if search value less than parentNode.left', function() {
+            it('recurses downward on rootNode.left if search value less than rootNode.left', function() {
                 containsSpy.reset();
                 tree.insert(30);
 
@@ -128,7 +128,7 @@ describe('Binary Search Tree Tests', function() {
                 expect(containsSpy.secondCall.args[1]).to.equal(30);
             });
 
-            it('recurses downward on parentNode.right if search value greater than parentNode.right', function() {
+            it('recurses downward on rootNode.right if search value greater than rootNode.right', function() {
                 containsSpy.reset();
                 tree.insert(70);
 
@@ -211,17 +211,17 @@ describe('Binary Search Tree Tests', function() {
                 findNodeSpy = sinon.spy(tree, 'findNode');
             });
 
-            it('returns null if startNode is null', function() {
+            it('returns null if rootNode is null', function() {
                 expect(tree.findNode(tree.root, 50)).to.be.null;
             });
 
-            it('returns startNode of startNode.value matches search value', function() {
+            it('returns rootNode of rootNode.value matches search value', function() {
                 tree.insert(50);
 
                 expect(tree.findNode(tree.root, 50)).to.equal(tree.root);
             });
 
-            it('resurses downard on startNode.left if search value less than startNode.value', function() {
+            it('resurses downard on rootNode.left if search value less than rootNode.value', function() {
                 findNodeSpy.reset();
                 tree.insert(30);
 
@@ -233,7 +233,7 @@ describe('Binary Search Tree Tests', function() {
                 expect(findNodeSpy.secondCall.args[1]).to.equal(30);
             });
 
-            it('recurses downard on startNode.right if search value greater than startNode.right', function() {
+            it('recurses downard on rootNode.right if search value greater than rootNode.right', function() {
                 findNodeSpy.reset();
                 tree.insert(70);
 

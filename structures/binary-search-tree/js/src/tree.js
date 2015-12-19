@@ -30,57 +30,57 @@ class Tree {
         }
     }
 
-    contains(parentNode, value) {
-        if (isNull(parentNode)) {
+    contains(rootNode, value) {
+        if (isNull(rootNode)) {
             return false;
         }
 
-        if (parentNode.value === value) {
+        if (rootNode.value === value) {
             return true;
-        } else if (value < parentNode.value) {
-            return this.contains(parentNode.left, value);
-        } else if (value > parentNode.value) {
-            return this.contains(parentNode.right, value);
+        } else if (value < rootNode.value) {
+            return this.contains(rootNode.left, value);
+        } else if (value > rootNode.value) {
+            return this.contains(rootNode.right, value);
         }
 
         return false;
     }
 
-    findParentNode(parentNode, value) {
-        if (value === parentNode.value) {
+    findParentNode(rootNode, value) {
+        if (value === rootNode.value) {
             return null;
         }
 
-        if (value < parentNode.value) {
-            if (isNull(parentNode.left)) {
+        if (value < rootNode.value) {
+            if (isNull(rootNode.left)) {
                 return null;
-            } else if (value === parentNode.left.value) {
-                return parentNode;
+            } else if (value === rootNode.left.value) {
+                return rootNode;
             } else {
-                return this.findParentNode(parentNode.left, value);
+                return this.findParentNode(rootNode.left, value);
             }
         } else {
-            if (isNull(parentNode.right)) {
+            if (isNull(rootNode.right)) {
                 return null;
-            } else if (value === parentNode.right.value) {
-                return parentNode;
+            } else if (value === rootNode.right.value) {
+                return rootNode;
             } else {
-                return this.findParentNode(parentNode.right, value);
+                return this.findParentNode(rootNode.right, value);
             }
         }
     }
 
-    findNode(startNode, value) {
-        if (isNull(startNode)) {
+    findNode(rootNode, value) {
+        if (isNull(rootNode)) {
             return null;
         }
 
-        if (value === startNode.value) {
-            return startNode;
-        } else if (value < startNode.value) {
-            return this.findNode(startNode.left, value);
+        if (value === rootNode.value) {
+            return rootNode;
+        } else if (value < rootNode.value) {
+            return this.findNode(rootNode.left, value);
         } else {
-            return this.findNode(startNode.right, value);
+            return this.findNode(rootNode.right, value);
         }
     }
 }
