@@ -70,8 +70,18 @@ class Tree {
         }
     }
 
-    findNode(root, value) {
+    findNode(startNode, value) {
+        if (isNull(startNode)) {
+            return null;
+        }
 
+        if (value === startNode.value) {
+            return startNode;
+        } else if (value < startNode.value) {
+            return this.findNode(startNode.left, value);
+        } else {
+            return this.findNode(startNode.right, value);
+        }
     }
 }
 

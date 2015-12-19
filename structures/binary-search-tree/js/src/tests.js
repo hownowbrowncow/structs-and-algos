@@ -202,5 +202,48 @@ describe('Binary Search Tree Tests', function() {
                 });
             });
         });
+
+        describe('#fineNode tests', function() {
+            let tree, findNodeSpy;
+
+            before(function() {
+                tree = new Tree();
+                findNodeSpy = sinon.spy(tree, 'findNode');
+            });
+
+            it('returns null if startNode is null', function() {
+                expect(tree.findNode(tree.root, 50)).to.be.null;
+            });
+
+            it('returns startNode of startNode.value matches search value', function() {
+                tree.insert(50);
+
+                expect(tree.findNode(tree.root, 50)).to.equal(tree.root);
+            });
+
+            it('resurses downard on startNode.left if search value less than startNode.value', function() {
+                findNodeSpy.reset();
+                tree.insert(30);
+
+                expect(tree.findNode(tree.root, 30)).to.equal(tree.root.left);
+                expect(findNodeSpy.calledTwice).to.be.true;
+                expect(findNodeSpy.firstCall.args[0]).to.equal(tree.root);
+                expect(findNodeSpy.firstCall.args[1]).to.equal(30);
+                expect(findNodeSpy.secondCall.args[0]).to.equal(tree.root.left);
+                expect(findNodeSpy.secondCall.args[1]).to.equal(30);
+            });
+
+            it('recurses downard on startNode.right if search value greater than startNode.right', function() {
+                findNodeSpy.reset();
+                tree.insert(70);
+
+                expect(tree.findNode(tree.root, 70)).to.equal(tree.root.right);
+                expect(findNodeSpy.calledTwice).to.be.true;
+                expect(findNodeSpy.firstCall.args[0]).to.equal(tree.root);
+                expect(findNodeSpy.firstCall.args[1]).to.equal(70);
+                expect(findNodeSpy.secondCall.args[0]).to.equal(tree.root.right);
+                expect(findNodeSpy.secondCall.args[1]).to.equal(70);
+            });
+        });
     });
 });
