@@ -93,5 +93,54 @@ describe('Binary Search Tree Tests', function() {
                 });
             });
         });
+
+        describe('#contains tests', function() {
+            let tree;
+            let containsSpy;
+
+            before(function() {
+                tree = new Tree();
+                containsSpy = sinon.spy(tree, 'contains');
+            });
+
+            it('returns false if tree is empty', function() {
+                expect(tree.root).to.be.null;
+                expect(tree.contains(tree.root, 50)).to.be.false;
+            });
+
+            it('returns true of parentNode.value is search value', function() {
+                tree.insert(50);
+                
+                expect(tree.contains(tree.root, 50)).to.be.true;
+            });
+
+            it('returns false if tree does not contain value', function() {
+                expect(tree.contains(tree.root, 30)).to.be.false;
+            });
+
+            it('recurses downward on parentNode.left if search value less than parentNode.left', function() {
+                containsSpy.reset();
+                tree.insert(30);
+
+                expect(tree.contains(tree.root, 30)).to.be.true;
+                expect(containsSpy.calledTwice).to.be.true;
+                expect(containsSpy.firstCall.args[0]).to.equal(tree.root);
+                expect(containsSpy.firstCall.args[1]).to.equal(30);
+                expect(containsSpy.secondCall.args[0]).to.equal(tree.root.left);
+                expect(containsSpy.secondCall.args[1]).to.equal(30);
+            });
+
+            it('recurses downward on parentNode.right if search value greater than parentNode.right', function() {
+                containsSpy.reset();
+                tree.insert(70);
+
+                expect(tree.contains(tree.root, 70)).to.be.true;
+                expect(containsSpy.calledTwice).to.be.true;
+                expect(containsSpy.firstCall.args[0]).to.equal(tree.root);
+                expect(containsSpy.firstCall.args[1]).to.equal(70);
+                expect(containsSpy.secondCall.args[0]).to.equal(tree.root.right);
+                expect(containsSpy.secondCall.args[1]).to.equal(70);
+            });
+        });
     });
 });

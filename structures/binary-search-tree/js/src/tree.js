@@ -30,8 +30,20 @@ class Tree {
         }
     }
 
-    contains(value) {
+    contains(parentNode, value) {
+        if (isNull(parentNode)) {
+            return false;
+        }
 
+        if (parentNode.value === value) {
+            return true;
+        } else if (value < parentNode.value) {
+            return this.contains(parentNode.left, value);
+        } else if (value > parentNode.value) {
+            return this.contains(parentNode.right, value);
+        }
+
+        return false;
     }
 
     remove(value) {
