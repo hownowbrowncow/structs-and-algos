@@ -40,8 +40,7 @@ describe('Binary Search Tree Tests', function() {
         });
 
         describe('#insertNode tests', function() {
-            let tree;
-            let insertNodeSpy;
+            let tree, insertNodeSpy;
 
             before(function() {
                 tree = new Tree();
@@ -95,8 +94,7 @@ describe('Binary Search Tree Tests', function() {
         });
 
         describe('#contains tests', function() {
-            let tree;
-            let containsSpy;
+            let tree, containsSpy;
 
             before(function() {
                 tree = new Tree();
@@ -140,6 +138,68 @@ describe('Binary Search Tree Tests', function() {
                 expect(containsSpy.firstCall.args[1]).to.equal(70);
                 expect(containsSpy.secondCall.args[0]).to.equal(tree.root.right);
                 expect(containsSpy.secondCall.args[1]).to.equal(70);
+            });
+        });
+
+        describe('#findParentNode tests', function() {
+            let tree, findParentNodeSpy;
+
+            before(function() {
+                tree = new Tree();
+                tree.insert(50);
+                findParentNodeSpy = sinon.spy(tree, 'findParentNode');
+            });
+
+            it('returns null if parentNode.value matches search value', function() {
+                expect(tree.findParentNode(tree.root, 50)).to.be.null;
+            });
+
+            describe('search value is less than parentNode.value tests', function() {
+                it('returns null of parentNode.left is null', function() {
+                    expect(tree.findParentNode(tree.root, 30)).to.be.null;
+                });
+                
+                it('returns parentNode if parentNode.left.value matches search value', function() {
+                    tree.insert(30);
+
+                    expect(tree.findParentNode(tree.root, 30)).to.equal(tree.root);
+                });
+
+                it('recurses downward on parentNode.left until tree node matching value is found',function() {
+                    findParentNodeSpy.reset();
+                    tree.insert(20);
+
+                    expect(tree.findParentNode(tree.root, 20)).to.equal(tree.root.left);
+                    expect(findParentNodeSpy.calledTwice).to.be.true;
+                    expect(findParentNodeSpy.firstCall.args[0]).to.equal(tree.root);
+                    expect(findParentNodeSpy.firstCall.args[1]).to.equal(20);
+                    expect(findParentNodeSpy.secondCall.args[0]).to.equal(tree.root.left);
+                    expect(findParentNodeSpy.secondCall.args[1]).to.equal(20);
+                });
+            });
+
+            describe('search value is greater than parentNode.value.tests', function() {
+                it('returns null of parentNode.right is null', function() {
+                    expect(tree.findParentNode(tree.root, 70)).to.be.null;
+                });
+                
+                it('returns parentNode if parentNode.right.value matches search value', function() {
+                    tree.insert(70);
+
+                    expect(tree.findParentNode(tree.root, 70)).to.equal(tree.root);
+                });
+
+                it('recurses downward on parentNode.right until tree node matching value is found', function() {
+                    findParentNodeSpy.reset();
+                    tree.insert(100);
+
+                    expect(tree.findParentNode(tree.root, 100)).to.equal(tree.root.right);
+                    expect(findParentNodeSpy.calledTwice).to.be.true;
+                    expect(findParentNodeSpy.firstCall.args[0]).to.equal(tree.root);
+                    expect(findParentNodeSpy.firstCall.args[1]).to.equal(100);
+                    expect(findParentNodeSpy.secondCall.args[0]).to.equal(tree.root.right);
+                    expect(findParentNodeSpy.secondCall.args[1]).to.equal(100);
+                });
             });
         });
     });

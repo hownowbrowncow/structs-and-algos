@@ -46,23 +46,31 @@ class Tree {
         return false;
     }
 
-    remove(value) {
+    findParentNode(parentNode, value) {
+        if (value === parentNode.value) {
+            return null;
+        }
 
+        if (value < parentNode.value) {
+            if (isNull(parentNode.left)) {
+                return null;
+            } else if (value === parentNode.left.value) {
+                return parentNode;
+            } else {
+                return this.findParentNode(parentNode.left, value);
+            }
+        } else {
+            if (isNull(parentNode.right)) {
+                return null;
+            } else if (value === parentNode.right.value) {
+                return parentNode;
+            } else {
+                return this.findParentNode(parentNode.right, value);
+            }
+        }
     }
 
-    findNode(value) {
-
-    }
-
-    findParent(value) {
-
-    }
-
-    findMin() {
-
-    }
-
-    findMax() {
+    findNode(root, value) {
 
     }
 }
