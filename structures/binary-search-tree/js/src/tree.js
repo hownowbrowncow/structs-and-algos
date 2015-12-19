@@ -15,7 +15,19 @@ class Tree {
     }
 
     insertNode(parentNode, value) {
-
+        if (value < parentNode.value) {
+            if (isNull(parentNode.left)) {
+                parentNode.left = new TreeNode(value);
+            } else {
+                this.insertNode(parentNode.left, value);
+            }
+        } else {
+            if (isNull(parentNode.right)) {
+                parentNode.right = new TreeNode(value);
+            } else {
+                this.insertNode(parentNode.right, value);
+            }
+        }
     }
 
     contains(value) {
