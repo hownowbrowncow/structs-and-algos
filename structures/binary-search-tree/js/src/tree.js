@@ -4,6 +4,7 @@ import TreeNode from './tree-node';
 class Tree {
     constructor() {
         this.root = null;
+        this.count = 0;
     }
 
     insert(value) {
@@ -12,6 +13,8 @@ class Tree {
         } else {
             this.insertNode(this.root, value);
         }
+
+        this.count += 1;
     }
 
     insertNode(parentNode, value) {
@@ -82,6 +85,51 @@ class Tree {
         } else {
             return this.findNode(rootNode.right, value);
         }
+    }
+
+    remove(value) {
+        let nodeToRemove = this.findNode(this.root, value);
+
+        if (isNull(nodeToRemove)) {
+            return false
+        }
+
+        let parentNode = this.findParentNode(this.root, value);
+
+        if (this.count === 1) {
+            this.root = null;
+        } else if (isNull(nodeToRemove.left) && isNull(nodeToRemove.right)) {
+            if (nodeToRemove.value < parentNode.value) {
+                parentNode.left = null;
+            } else {
+                parentNode.right = null;
+            }
+        } else if (isNull(nodeToRemove.left) && !isNull(nodeToRemove.right)) {
+            if (nodeToRemove.value < parentNode.value) {
+                parentNode.left = nodeToRemove.right;
+            } else {
+                parentNode.right = nodeToRemove.right;
+            }
+        } else if (!isNull(nodeToRemove.left) && isNull(nodeToRemove.right)) {
+            if (nodeToRemove.value < parentNode.value) {
+                parentNode.left = nodeToRemove.left;
+            } else {
+                parentNode.right = nodeToRemove.left;
+            }
+        } else {
+            let largestNode = nodeToRemove.left;
+
+            while (!isNull(largestNode.right)) {
+                largestNode = largestNode.right;
+            }
+
+            this.remove(largestNode.value);
+            nodeToRemove.value = largestNode.value;
+        }
+
+        this.count -= 1;
+
+        return true;
     }
 }
 

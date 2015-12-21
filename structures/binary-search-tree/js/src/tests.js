@@ -12,6 +12,7 @@ describe('Binary Search Tree Tests', function() {
             it('sets root to null on initialize', function() {
                 const tree = new Tree();
                 expect(tree.root).to.be.null;
+                expect(tree.count).to.equal(0);
             });
         });
 
@@ -36,6 +37,10 @@ describe('Binary Search Tree Tests', function() {
                 expect(insertNodeSpy.calledOnce).to.be.true;
                 expect(insertNodeSpy.getCall(0).args[0]).to.equal(tree.root);
                 expect(insertNodeSpy.getCall(0).args[1]).to.equal(5);
+            });
+
+            it('should increment count on each insert', function() {
+                expect(tree.count).to.equal(2);
             });
         });
 
@@ -243,6 +248,116 @@ describe('Binary Search Tree Tests', function() {
                 expect(findNodeSpy.firstCall.args[1]).to.equal(70);
                 expect(findNodeSpy.secondCall.args[0]).to.equal(tree.root.right);
                 expect(findNodeSpy.secondCall.args[1]).to.equal(70);
+            });
+        });
+
+        describe('#remove tests', function() {
+            let tree;
+
+            before(function() {
+                tree = new Tree();
+            });
+
+            it('returns false if no matching tree node found', function() {
+                expect(tree.remove(10)).to.be.false;
+            });
+
+            it('sets root node to null if matches value and is only node in tree', function() {
+                tree.insert(50);
+
+                expect(tree.root).to.be.instanceof(TreeNode);
+                expect(tree.root.value).to.equal(50);
+                expect(tree.remove(50)).to.be.true;
+                expect(tree.root).to.be.null;
+            });
+
+            it('decrements count by 1 if node is removed', function() {
+                tree.insert(50);
+
+                expect(tree.count).to.equal(1);
+                expect(tree.remove(50)).to.be.true;
+                expect(tree.count).to.equal(0);
+
+            });
+
+            describe('node to remove has no left or right subtree', function() {
+                it('sets parentNode.left to null if nodeToRemove.value is less than parentNode.value', function() {
+                    tree.insert(50);
+                    tree.insert(30);
+
+                    expect(tree.root.left).to.be.instanceof(TreeNode);
+                    expect(tree.remove(30)).to.be.true;
+                    expect(tree.root.left).to.be.null;
+                });
+
+                it('sets parentNode.right to null if nodeToRemove.value is greater than parentNode.value', function() {
+                    tree.insert(70);
+
+                    expect(tree.root.right).to.be.instanceof(TreeNode);
+                    expect(tree.remove(70)).to.be.true;
+                    expect(tree.root.right).to.be.null;
+                });
+            });
+
+            describe('node to remove has a right subtree but no left subtree', function() {
+                it('sets parentNode.left to nodeToRemove.right if nodeToRemove.value less than parentNode.value', function() {
+                    tree.insert(30);
+                    tree.insert(40);
+
+                    expect(tree.root.left).to.be.instanceof(TreeNode);
+                    expect(tree.root.left.value).to.equal(30);
+                    expect(tree.root.left.right).to.be.instanceof(TreeNode);
+                    expect(tree.root.left.right.value).to.equal(40);
+                    expect(tree.remove(30)).to.be.true;
+                    expect(tree.root.left.value).to.equal(40);
+                });
+
+                it('sets parentNode.right to nodeToRemove.right if nodeToRemove.value greater than parentNode.right', function() {
+                    tree.insert(60);
+                    tree.insert(70);
+
+                    expect(tree.root.right).to.be.instanceof(TreeNode);
+                    expect(tree.root.right.value).to.equal(60);
+                    expect(tree.root.right.right).to.be.instanceof(TreeNode);
+                    expect(tree.root.right.right.value).to.equal(70);
+                    expect(tree.remove(60)).to.be.true;
+                    expect(tree.root.right.value).to.equal(70);
+                });
+            });
+
+            describe('node to remove has a left subtree but no right subtree', function() {
+                it('sets parentNode.left to nodeToRemove.left if nodeToRemove.value less than parentNode.value', function() {
+                    tree.insert(30);
+
+                    expect(tree.root.left).to.be.instanceof(TreeNode);
+                    expect(tree.root.left.left).to.be.instanceof(TreeNode);
+                    expect(tree.root.left.value).to.equal(40);
+                    expect(tree.root.left.left.value).to.equal(30);
+                    expect(tree.remove(40)).to.be.true;
+                    expect(tree.root.left.value).to.equal(30);
+                });
+
+                it('sets parentNode.right to nodeToRemove.left if nodeToRemove.value greater than parentNode.value', function() {
+                    tree.insert(60);
+
+                    expect(tree.root.right).to.be.instanceof(TreeNode);
+                    expect(tree.root.right.left).to.be.instanceof(TreeNode);
+                    expect(tree.root.right.value).to.equal(70);
+                    expect(tree.root.right.left.value).to.equal(60);
+                    expect(tree.remove(70)).to.be.true;
+                    expect(tree.root.right.value).to.equal(60);
+                });
+            });
+
+            describe('node to remove has both left and right subtrees', function() {
+                it('it promotes largest value in left subtree', function() {
+                    expect(tree.root.value).to.equal(50);
+                    expect(tree.root.left.value).to.equal(30);
+                    expect(tree.root.right.value).to.equal(60);
+                    expect(tree.remove(50)).to.be.true;
+                    expect(tree.root.value).to.equal(30);
+                    expect(tree.root.left).to.be.null;
+                });
             });
         });
     });
