@@ -1,4 +1,4 @@
-function merge(data) {
+function mergeSort(data) {
     if (data.length <= 1) {
         return data;
     }
@@ -7,13 +7,13 @@ function merge(data) {
     let left = data.slice(0, middle);
     let right = data.slice(middle, data.length);
 
-    left = merge(left);
-    right = merge(right);
+    left = mergeSort(left);
+    right = mergeSort(right);
 
-    return mergeSort(left, right);
+    return sort(left, right);
 }
 
-function mergeSort(left, right) {
+function sort(left, right) {
     let result = [];
 
     while (left.length && right.length) {
@@ -39,4 +39,4 @@ function mergeSort(left, right) {
     return result;
 }
 
-export default merge;
+export default mergeSort;

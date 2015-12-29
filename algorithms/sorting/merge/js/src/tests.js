@@ -1,6 +1,6 @@
 import chai from 'chai';
 import mocha from 'mocha';
-import merge from './merge';
+import mergeSort from './merge-sort';
 
 const expect = chai.expect;
 
@@ -28,6 +28,6 @@ describe('Merge Sort Tests', function() {
         let expected = random.slice(0, random.length).sort(compare);
 
         expect(random).to.not.equal(expected);
-        expect(merge(random)).to.deep.equal(expected);
+        expect(mergeSort(random)).to.deep.equal(expected);
     });
 });
