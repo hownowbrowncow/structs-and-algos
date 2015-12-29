@@ -1,5 +1,5 @@
+/* eslint-disable */
 import chai from 'chai';
-import mocha from 'mocha';
 import quickSort from './quick-sort';
 
 const expect = chai.expect;

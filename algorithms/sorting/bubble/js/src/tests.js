@@ -1,5 +1,5 @@
+/* eslint-disable */
 import chai from 'chai';
-import mocha from 'mocha';
 import bubbleSort from './bubble-sort';
 
 const expect = chai.expect;

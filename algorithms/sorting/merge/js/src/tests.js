@@ -1,5 +1,5 @@
+/* eslint-disable */
 import chai from 'chai';
-import mocha from 'mocha';
 import mergeSort from './merge-sort';
 
 const expect = chai.expect;

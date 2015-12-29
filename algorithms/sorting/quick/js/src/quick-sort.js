@@ -3,19 +3,19 @@ function quickSort(data) {
         return data;
     }
 
-    let middle = Math.floor(data.length / 2);
-    let pivot = data[middle];
-    let equal = [];
-    let less = [];
-    let greater = [];
+    const middle = Math.floor(data.length / 2);
+    const pivot = data[middle];
+    const equal = [];
+    const less = [];
+    const greater = [];
 
-    for (let i = 0; i < data.length; i += 1) {
-        if (data[i] === pivot) {
-            equal.push(data[i]);
-        } else if (data[i] < pivot) {
-            less.push(data[i]);
+    for (let inc = 0; inc < data.length; inc += 1) {
+        if (data[inc] === pivot) {
+            equal.push(data[inc]);
+        } else if (data[inc] < pivot) {
+            less.push(data[inc]);
         } else {
-            greater.push(data[i]);
+            greater.push(data[inc]);
         }
     }
 

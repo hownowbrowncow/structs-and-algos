@@ -1,20 +1,5 @@
-function mergeSort(data) {
-    if (data.length <= 1) {
-        return data;
-    }
-
-    let middle = Math.floor(data.length / 2);
-    let left = data.slice(0, middle);
-    let right = data.slice(middle, data.length);
-
-    left = mergeSort(left);
-    right = mergeSort(right);
-
-    return sort(left, right);
-}
-
 function sort(left, right) {
-    let result = [];
+    const result = [];
 
     while (left.length && right.length) {
         if (left[0] <= right[0]) {
@@ -37,6 +22,21 @@ function sort(left, right) {
     }
 
     return result;
+}
+
+function mergeSort(data) {
+    if (data.length <= 1) {
+        return data;
+    }
+
+    const middle = Math.floor(data.length / 2);
+    let left = data.slice(0, middle);
+    let right = data.slice(middle, data.length);
+
+    left = mergeSort(left);
+    right = mergeSort(right);
+
+    return sort(left, right);
 }
 
 export default mergeSort;
