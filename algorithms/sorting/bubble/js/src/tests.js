@@ -1,6 +1,6 @@
 import chai from 'chai';
 import mocha from 'mocha';
-import bubble from './bubble';
+import bubbleSort from './bubble-sort';
 
 const expect = chai.expect;
 
@@ -23,11 +23,11 @@ function compare(a, b) {
 }
 
 describe('Bubble Sort tests', function() {
-    it('should sort a random set of numbers', function() {
+    it('sorts an array of unsorted random numbers', function() {
         const random = createData();
         const expected = random.slice(0, random.length).sort(compare);
 
         expect(random).to.not.equal(expected);
-        expect(bubble(random)).to.deep.equal(expected);
+        expect(bubbleSort(random)).to.deep.equal(expected);
     });
 });

@@ -1,4 +1,4 @@
-function bubble(data) {
+function bubbleSort(data) {
     for (var i = 0; i < data.length; i += 1) {
         for (var j = 0; j < data.length; j += 1) {
             if (data[i] < data[j]) {
@@ -12,4 +12,4 @@ function bubble(data) {
     return data;
 }
 
-export default bubble;
+export default bubbleSort;
