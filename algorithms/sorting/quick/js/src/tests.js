@@ -1,6 +1,6 @@
 import chai from 'chai';
 import mocha from 'mocha';
-import quick from './quick';
+import quickSort from './quick-sort';
 
 const expect = chai.expect;
 
@@ -28,6 +28,6 @@ describe('Quick Sort Tests', function() {
         let expected = random.slice(0, random.length).sort(compare);
 
         expect(random).to.not.equal(expected);
-        expect(quick(random)).to.deep.equal(expected);
+        expect(quickSort(random)).to.deep.equal(expected);
     });
 });

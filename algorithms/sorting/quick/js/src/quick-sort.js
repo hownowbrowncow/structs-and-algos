@@ -1,4 +1,4 @@
-function quick(data) {
+function quickSort(data) {
     if (data.length <= 1) {
         return data;
     }
@@ -19,7 +19,7 @@ function quick(data) {
         }
     }
 
-    return [].concat(quick(less), equal, quick(greater));
+    return [].concat(quickSort(less), equal, quickSort(greater));
 }
 
-export default quick;
+export default quickSort;
