@@ -24,7 +24,7 @@ function compare(a, b) {
 
 describe('Shell Sort Tests', function() {
     it('sorts an array of unsorted random numbers', function() {
-        const random = createData(10);
+        const random = createData();
         const expected = random.slice(0, random.length).sort(compare);
 
         expect(random).to.not.equal(expected);
