@@ -1,7 +1,7 @@
 {
-  "name": "singly-linked-list",
+  "name": "merge-sort",
   "version": "0.0.0",
-  "description": "Singly Linked List",
+  "description": "Merge Sort",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

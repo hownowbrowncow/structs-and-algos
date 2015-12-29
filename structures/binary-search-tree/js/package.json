@@ -1,7 +1,7 @@
 {
-  "name": "singly-linked-list",
+  "name": "binary-search-tree",
   "version": "0.0.0",
-  "description": "Singly Linked List",
+  "description": "Binary Search Tree",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
