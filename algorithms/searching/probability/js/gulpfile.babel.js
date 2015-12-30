@@ -12,7 +12,7 @@ gulp.task('build', () => {
 gulp.task('compile', () => {
     return gulp.src('./src/**/*.js')
         .pipe(babel({presets: ['es2015']}))
-        .on('error', (error) => gutil.log(error.message))
+        .on('error', error => gutil.log(error.message))
         .pipe(gulp.dest('./build'));
 });
 
@@ -21,7 +21,7 @@ gulp.task('test', () => {
         .pipe(mocha({reporter: 'dot'}));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', ['build'], () => {
     return gulp.watch('./src/**/*.js', ['build']);
 });
 
