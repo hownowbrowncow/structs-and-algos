@@ -21,7 +21,7 @@ gulp.task('test', () => {
         .pipe(mocha({reporter: 'dot'}));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', ['build'], () => {
     return gulp.watch('./src/**/*.js', ['build']);
 });
 

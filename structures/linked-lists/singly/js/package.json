@@ -20,6 +20,7 @@
     "gulp-util": "^3.0.7",
     "lodash": "^3.10.1",
     "mocha": "^2.3.4",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "sinon": "^1.17.2"
   }
 }
